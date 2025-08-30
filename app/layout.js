@@ -1,8 +1,14 @@
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
-import { Analytics } from "@vercel/analytics/next"
+import { Inter, Orbitron } from "next/font/google"
 import { Suspense } from "react"
 import "./globals.css"
+import "../styles/medusa.css"
+
+const inter = Inter({ subsets: ["latin"] })
+const orbitron = Orbitron({ 
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-orbitron"
+})
 
 export const metadata = {
   title: "Akroft i8 Node - DeFi & AI Flow Automation",
@@ -14,9 +20,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+      <body className={`${inter.className} ${orbitron.variable}`}>
         <Suspense fallback={null}>{children}</Suspense>
-        <Analytics />
       </body>
     </html>
   )

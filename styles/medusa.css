@@ -1,0 +1,184 @@
+/* Medusa Animations for Akroft i8 Node - Updated with logo colors */
+
+/* Keyframes for animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(15deg); }
+  75% { transform: rotate(-15deg); }
+}
+
+@keyframes tentacle-wave-1 {
+  0%, 100% { transform: rotate(0deg) translateX(0px); }
+  25% { transform: rotate(15deg) translateX(3px); }
+  75% { transform: rotate(-15deg) translateX(-3px); }
+}
+
+@keyframes tentacle-wave-2 {
+  0%, 100% { transform: rotate(45deg) translateX(0px); }
+  25% { transform: rotate(60deg) translateX(3px); }
+  75% { transform: rotate(30deg) translateX(-3px); }
+}
+
+@keyframes tentacle-wave-3 {
+  0%, 100% { transform: rotate(-45deg) translateX(0px); }
+  25% { transform: rotate(-30deg) translateX(3px); }
+  75% { transform: rotate(-60deg) translateX(-3px); }
+}
+
+/* Medusa container */
+.medusa-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Individual medusa */
+.medusa {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Medusa core (central node) - Using logo colors */
+.medusa-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #00FFFF 0%, #3B82F6 50%, #1E3A8A 100%);
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 
+    0 0 15px #00FFFF,
+    0 0 30px #3B82F6,
+    inset 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+/* Tentacles (flow lines) - Using logo gradient */
+.medusa-tentacle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 50px;
+  transform-origin: bottom center;
+  background: linear-gradient(to top, #3B82F6, transparent);
+  border-radius: 1px;
+  opacity: 0.7;
+}
+
+/* Individual tentacle positioning and animation */
+.medusa-tentacle:nth-child(2) {
+  transform: translate(-50%, -100%) rotate(0deg);
+  animation: tentacle-wave-1 3s ease-in-out infinite;
+  background: linear-gradient(to top, #00FFFF, transparent);
+}
+
+.medusa-tentacle:nth-child(3) {
+  transform: translate(-50%, -100%) rotate(45deg);
+  animation: tentacle-wave-2 3.5s ease-in-out infinite;
+  background: linear-gradient(to top, #3B82F6, transparent);
+}
+
+.medusa-tentacle:nth-child(4) {
+  transform: translate(-50%, -100%) rotate(-45deg);
+  animation: tentacle-wave-3 4s ease-in-out infinite;
+  background: linear-gradient(to top, #1E3A8A 0%, #3B82F6 50%, transparent 100%);
+}
+
+/* Stagger animation timing for each medusa */
+.medusa:nth-child(2) {
+  animation-delay: -2s;
+}
+
+.medusa:nth-child(2) .medusa-core {
+  animation-delay: -1s;
+}
+
+.medusa:nth-child(2) .medusa-tentacle:nth-child(2) {
+  animation-delay: -1.5s;
+}
+
+.medusa:nth-child(2) .medusa-tentacle:nth-child(3) {
+  animation-delay: -2s;
+}
+
+.medusa:nth-child(2) .medusa-tentacle:nth-child(4) {
+  animation-delay: -2.5s;
+}
+
+.medusa:nth-child(3) {
+  animation-delay: -4s;
+}
+
+.medusa:nth-child(3) .medusa-core {
+  animation-delay: -2s;
+}
+
+.medusa:nth-child(3) .medusa-tentacle:nth-child(2) {
+  animation-delay: -3s;
+}
+
+.medusa:nth-child(3) .medusa-tentacle:nth-child(3) {
+  animation-delay: -4s;
+}
+
+.medusa:nth-child(3) .medusa-tentacle:nth-child(4) {
+  animation-delay: -5s;
+}
+
+/* Additional glow effects with logo colors */
+.medusa::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 40%, rgba(0, 255, 255, 0.1) 50%, rgba(59, 130, 246, 0.1) 70%, transparent 100%);
+  animation: pulse 4s ease-in-out infinite reverse;
+  pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .medusa-container {
+    height: 250px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+  }
+  
+  .medusa {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .medusa-core {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .medusa-tentacle {
+    height: 40px;
+  }
+}
