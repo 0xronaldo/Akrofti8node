@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Link from 'next/link'
 import { ethers } from 'ethers'
 
 export default function AkroftLandingPage() {
@@ -403,6 +404,49 @@ export default function AkroftLandingPage() {
         </div>
       </section>
 
+      {/* Quick Access Navigation */}
+      <section className="py-12 px-6 bg-gray-900/30">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-2xl font-bold text-center text-white mb-8">
+            Explore Platform Features
+          </h3>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Link
+              href="/workspace"
+              className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-blue-500 transition-all group"
+            >
+              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">🛠️</div>
+              <h4 className="text-xl font-semibold text-white mb-2">Workspace</h4>
+              <p className="text-gray-300 text-sm">
+                Build and test your Web3 automation flows with our visual editor
+              </p>
+            </Link>
+
+            <Link
+              href="/collaboration"
+              className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-purple-500 transition-all group"
+            >
+              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">🤝</div>
+              <h4 className="text-xl font-semibold text-white mb-2">Collaborate</h4>
+              <p className="text-gray-300 text-sm">
+                Work together in real-time on blockchain automation workflows
+              </p>
+            </Link>
+
+            <Link
+              href="/publications"
+              className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-green-500 transition-all group"
+            >
+              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">📊</div>
+              <h4 className="text-xl font-semibold text-white mb-2">Marketplace</h4>
+              <p className="text-gray-300 text-sm">
+                Share, sell, or find collaborators for your Web3 automation projects
+              </p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
 
       {/* CTA Section - Fondo negro elegante */}
       <section className="py-24 px-6 bg-black border-t border-gray-800/30">
@@ -452,7 +496,7 @@ export default function AkroftLandingPage() {
             {/* Information */}
             <div className="text-center space-y-3">
               <p className="text-gray-300 text-lg">
-                Built for Aleph Hackathon • V0 by Vercel Track
+                Built for Ronaldo Developer • V0 for project Aleph Hackathon 2025 
               </p>
               <div className="flex items-center justify-center space-x-6 text-sm text-gray-400">
                 <span>Web3 Flow Automation</span>

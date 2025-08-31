@@ -654,11 +654,53 @@ const NodePropertiesPanel = ({ node, onClose, onSave }) => {
 // Main Workspace Component
 export default function WorkspacePage() {
   const router = useRouter()
+
+  // Collaboration mode detection
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const collaboration = urlParams.get('collaboration');
+    const mode = urlParams.get('mode');
+    
+    if (collaboration && mode) {
+      setCollaborationMode(mode);
+      setCollaborationSession(collaboration);
+    }
+  }, []);
+
+  // Calculator Demo Function
+  const runCalculatorDemo = async () => {
+    setShowCalculatorDemo(true);
+    setCalculatorResult('Calculating...');
+    
+    // Simulate smart contract calculator interaction
+    try {
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate blockchain call
+      const result = Math.floor(Math.random() * 1000) + 100; // Mock calculation
+      setCalculatorResult(`Result: ${result} ETH`);
+      
+      setTimeout(() => {
+        setShowCalculatorDemo(false);
+        setCalculatorResult(null);
+      }, 3000);
+    } catch (error) {
+      setCalculatorResult('Error in calculation');
+      setTimeout(() => {
+        setShowCalculatorDemo(false);
+        setCalculatorResult(null);
+      }, 3000);
+    }
+  };
   const [nodes, setNodes] = useState([])
   const [selectedNode, setSelectedNode] = useState(null)
   const [showNodeProperties, setShowNodeProperties] = useState(null)
   const [currentNetwork, setCurrentNetwork] = useState('testnet')
   const [isConnected, setIsConnected] = useState(false)
+  
+  // Collaboration and demo features
+  const [collaborationMode, setCollaborationMode] = useState(null)
+  const [collaborationSession, setCollaborationSession] = useState(null)
+  const [showCalculatorDemo, setShowCalculatorDemo] = useState(false)
+  const [calculatorResult, setCalculatorResult] = useState(null)
   const canvasRef = useRef(null)
 
   const addNode = useCallback((nodeTemplate, position) => {
@@ -739,6 +781,28 @@ export default function WorkspacePage() {
           </div>
 
           <div className="flex items-center space-x-4">
+            {/* Collaboration Status */}
+            {collaborationMode && (
+              <div className="flex items-center space-x-2 px-3 py-1 bg-purple-900/50 border border-purple-500 rounded-lg">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-purple-300 text-sm font-semibold">
+                  {collaborationMode === 'server' ? '👑 Hosting' : '👥 Collaborating'}
+                </span>
+                <span className="text-purple-400 text-xs">
+                  {collaborationSession?.slice(0, 8)}...
+                </span>
+              </div>
+            )}
+
+            {/* Calculator Demo Button */}
+            <button
+              onClick={runCalculatorDemo}
+              disabled={showCalculatorDemo}
+              className="bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white font-semibold px-4 py-2 rounded-lg transition-all duration-300 shadow-lg disabled:opacity-50"
+            >
+              {showCalculatorDemo ? '🔄 Computing...' : '🧮 Smart Contract Demo'}
+            </button>
+
             {/* Network Switch */}
             <NetworkSwitch 
               currentNetwork={currentNetwork}
@@ -836,6 +900,48 @@ export default function WorkspacePage() {
           onClose={() => setShowNodeProperties(null)}
           onSave={handleNodePropertiesSave}
         />
+      )}
+
+      {/* Calculator Demo Modal */}
+      {showCalculatorDemo && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="bg-gray-900 border border-cyan-400/50 rounded-xl p-8 max-w-md mx-4">
+            <div className="text-center">
+              <div className="text-4xl mb-4">🧮</div>
+              <h3 className="text-xl font-bold text-white mb-4">Smart Contract Calculator Demo</h3>
+              
+              <div className="bg-gray-800 rounded-lg p-6 mb-6">
+                <div className="flex items-center justify-center space-x-2 mb-4">
+                  <div className="w-12 h-8 bg-blue-500 rounded text-white text-xs flex items-center justify-center">
+                    INPUT
+                  </div>
+                  <div className="w-4 h-0.5 bg-gray-500"></div>
+                  <div className="w-12 h-8 bg-purple-500 rounded text-white text-xs flex items-center justify-center">
+                    CALC
+                  </div>
+                  <div className="w-4 h-0.5 bg-gray-500"></div>
+                  <div className="w-12 h-8 bg-green-500 rounded text-white text-xs flex items-center justify-center">
+                    OUTPUT
+                  </div>
+                </div>
+                
+                <div className="text-gray-300 text-sm mb-4">
+                  Connecting to Arbitrum {currentNetwork === 'testnet' ? 'Sepolia' : 'One'}...
+                </div>
+                
+                <div className="text-lg font-bold text-cyan-400">
+                  {calculatorResult || 'Processing...'}
+                </div>
+              </div>
+
+              <div className="text-gray-400 text-sm">
+                This demonstrates smart contract integration with visual nodes.
+                <br />
+                In production, this would execute real blockchain transactions.
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )
