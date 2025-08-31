@@ -15,6 +15,9 @@ export const metadata = {
   description:
     "Build, collaborate, and deploy on-chain workflows without coding. Automate DeFi & AI with collaborative flows.",
   generator: "v0.app",
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({ children }) {
