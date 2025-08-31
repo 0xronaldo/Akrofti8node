@@ -11,12 +11,14 @@ const orbitron = Orbitron({
 })
 
 export const metadata = {
-  title: "Akroft i8 Node - DeFi & AI Flow Automation",
+  title: "Akroft i8 Node",
   description:
     "Build, collaborate, and deploy on-chain workflows without coding. Automate DeFi & AI with collaborative flows.",
-  generator: "v0.app",
+  generator: "Ronaldo developer hard code | v0.app",
   icons: {
-    icon: '/favicon.ico',
+    icon: ['/favicon.ico'],
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
 }
 
